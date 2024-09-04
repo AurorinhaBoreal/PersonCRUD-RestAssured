@@ -14,7 +14,7 @@ import lombok.Setter;
 public class Person {
     private String firstName;
     private String lastName;
-    private String cpg;
+    private String cpf;
     private LocalDate birthDate;
     private Integer photoId;
 }
