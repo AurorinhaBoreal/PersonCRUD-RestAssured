@@ -1,5 +1,6 @@
 package com.db.person_restassured;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
@@ -9,9 +10,16 @@ import com.db.person_restassured.modal.Address;
 import com.db.person_restassured.modal.Person;
 
 import io.restassured.http.ContentType;
+
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 public class AddressTests {
+
+    @BeforeAll
+    public void setUp() {
+        baseURI = "http://localhost:8080";
+    }
 
     @Test
     public void allowAddressCreationAndDeletion() {
@@ -23,7 +31,7 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validPerson)
             .when()
-            .post("http://localhost:8080/person/create")
+            .post("/person/create")
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
@@ -31,13 +39,13 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(invalidAddress)
             .when()
-            .post("http://localhost:8080/address/create/"+personCpf)
+            .post("/address/create/"+personCpf)
             .then()
             .statusCode(HttpStatus.BAD_REQUEST.value());
 
         given()
             .when()
-            .delete("http://localhost:8080/person/delete/"+personCpf)
+            .delete("/person/delete/"+personCpf)
             .then()
             .statusCode(HttpStatus.NO_CONTENT.value());
     }
@@ -52,7 +60,7 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validPerson)
             .when()
-            .post("http://localhost:8080/person/create")
+            .post("/person/create")
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
@@ -60,13 +68,13 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validAddress)
             .when()
-            .post("http://localhost:8080/address/create/"+personCpf)
+            .post("/address/create/"+personCpf)
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
         given()
             .when()
-            .delete("http://localhost:8080/person/delete/"+personCpf)
+            .delete("/person/delete/"+personCpf)
             .then()
             .statusCode(HttpStatus.NO_CONTENT.value());
     }
@@ -82,7 +90,7 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validPerson)
             .when()
-            .post("http://localhost:8080/person/create")
+            .post("/person/create")
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
@@ -90,7 +98,7 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validAddress)
             .when()
-            .post("http://localhost:8080/address/create/"+personCpf)
+            .post("/address/create/"+personCpf)
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
@@ -98,19 +106,19 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validAddress)
             .when()
-            .patch("http://localhost:8080/address/update/"+addressID)
+            .patch("/address/update/"+addressID)
             .then()
             .statusCode(HttpStatus.OK.value());
 
         given()
             .when()
-            .get("http://localhost:8080/address")
+            .get("/address")
             .then()
             .statusCode(HttpStatus.OK.value());
 
         given()
             .when()
-            .delete("http://localhost:8080/person/delete/"+personCpf)
+            .delete("/person/delete/"+personCpf)
             .then()
             .statusCode(HttpStatus.NO_CONTENT.value());
     }
@@ -125,7 +133,7 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validPerson)
             .when()
-            .post("http://localhost:8080/person/create")
+            .post("/person/create")
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
@@ -133,19 +141,19 @@ public class AddressTests {
             .contentType(ContentType.JSON)
             .body(validAddress)
             .when()
-            .post("http://localhost:8080/address/create/"+personCpf)
+            .post("/address/create/"+personCpf)
             .then()
             .statusCode(HttpStatus.CREATED.value());
 
         given()
             .when()
-            .get("http://localhost:8080/address")
+            .get("/address")
             .then()
             .statusCode(HttpStatus.OK.value());
 
         given()
             .when()
-            .delete("http://localhost:8080/person/delete/"+personCpf)
+            .delete("/person/delete/"+personCpf)
             .then()
             .statusCode(HttpStatus.NO_CONTENT.value());
     }
