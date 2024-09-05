@@ -1,6 +1,6 @@
 package com.db.person_restassured;
 
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
 
@@ -16,7 +16,7 @@ import static io.restassured.RestAssured.given;
 
 public class AddressTests {
 
-    @BeforeAll
+    @BeforeEach
     public void setUp() {
         baseURI = "http://localhost:8080";
     }
